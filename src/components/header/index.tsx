@@ -7,7 +7,7 @@ import {
   faUserCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
-export const Header = () => {
+export const Header:React.FC = () => {
   return (
     <header className={styles.main}>
       <div className={styles.contents}>
