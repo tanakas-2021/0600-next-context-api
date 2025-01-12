@@ -15,17 +15,17 @@ export const Header:React.FC = () => {
         <div className={styles.contentsRight}>
           <ul className={styles.menu}>
             <li className={styles.menuItem}>
-              <FontAwesomeIcon icon={faPlus} size="xs" color="white" />
+              <FontAwesomeIcon icon={faPlus}/>
             </li>
             <li className={styles.menuItem}>
-              <FontAwesomeIcon icon={faInfoCircle} size="xs" color="white" />
+              <FontAwesomeIcon icon={faInfoCircle}/>
             </li>
             <li className={styles.menuItem}>
-              <FontAwesomeIcon icon={faBell} size="xs" color="white" />
+              <FontAwesomeIcon icon={faBell}/>
             </li>
           </ul>
           <div className={styles.iconUser}>
-            <FontAwesomeIcon icon={faUserCircle} size="xs" color="white" />
+            <FontAwesomeIcon icon={faUserCircle}/>
           </div>
         </div>
       </div>
