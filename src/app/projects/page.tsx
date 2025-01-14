@@ -10,45 +10,7 @@ import {
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
-
-interface Project {
-  id: string;
-  name: string;
-  deadline: string;
-  slug: string;
-  goal: string;
-  shouldbe: string;
-  stats: {
-    kinds: {
-      milestone: number;
-      task: number;
-      total: number;
-    };
-    states: {
-      scheduled: number;
-      archived: number;
-      completed: number;
-    };
-    total: number;
-  };
-  milestones: any[];
-  status: "active" | "inactive";
-  createdAt: string;
-  updatedAt: string;
-}
-
-interface PageInfo {
-  page: number;
-  limit: number;
-  totalCount: number;
-  hasNext: boolean;
-  hasPrevious: boolean;
-}
-
-interface Response {
-  data: Project[];
-  pageInfo: PageInfo;
-}
+import { Project, projectsResponse } from "../../../src/types/types";
 
 const Page = () => {
   const [isShow, setIsShow] = useState(true);
@@ -61,7 +23,7 @@ const Page = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get<Response>(
+        const response = await axios.get<projectsResponse>(
           "http://localhost:3000/api/v1/users/projects"
         );
         setProjects([...response.data.data]);
