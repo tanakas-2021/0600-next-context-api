@@ -1,0 +1,46 @@
+@use "../../app/variables.module.scss" as vars;
+
+.main {
+  background-color: vars.$primartColor;
+  color: vars.$fontColorLight;
+}
+
+.contents {
+  padding: 2px 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contentsLeft {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.contentsRight {
+  margin-right: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.menu {
+  display: flex;
+  margin-right: 16px;
+  align-items: center;
+  list-style-type: none;
+}
+
+.menuItem {
+  margin-right: 16px;
+  justify-content: center;
+  align-items: center;
+  min-height: 15px; /* 十分な高さを確保 */
+  min-width: 15px; /* 十分な幅を確保 */
+}
+
+.iconUser {
+  position: relative;
+  min-height: 15px; /* 十分な高さを確保 */
+  min-width: 15px; /* 十分な幅を確保 */
+}
