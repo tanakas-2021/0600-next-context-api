@@ -73,10 +73,18 @@ export const Sidebar = () => {
                       key={project.id}
                       className={styles.sidebarProjectListItem}
                     >
+                      <div
+                        className={styles.sidebarProjectDot}
+                        style={
+                          {
+                            "--dot-color": `${project.color}`,
+                          } as React.CSSProperties
+                        }
+                      />
                       <div>{project.name}</div>
-                      <span className={styles.sidebarProjectDeadline}>
+                      <div className={styles.sidebarProjectDeadline}>
                         {dayjs(project.deadline).format("YYYY/MM/DD")}
-                      </span>
+                      </div>
                     </li>
                   );
                 })}
