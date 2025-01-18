@@ -25,7 +25,7 @@ export const Sidebar = () => {
         const response = await axios.get<projectsResponse>(
           "http://localhost:3000/api/v1/users/projects"
         );
-        setProjects([...response.data.data]);
+        setProjects(response.data.data);
       } catch {
         alert("データの取得に失敗しました");
       }
