@@ -60,6 +60,11 @@
   color: vars.$fontColorDark;
 }
 
+.calenderIcon {
+  margin-right: 2px;
+  font-size: 10px;
+}
+
 .cardDeadlineDate {
   font-size: 8px;
   font-weight: 700;
@@ -102,6 +107,11 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+}
+
+.codeCommitIcon {
+  margin-right: 2px;
+  font-size: 14px;
 }
 
 .cardStatsText {

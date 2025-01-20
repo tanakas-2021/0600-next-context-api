@@ -52,7 +52,7 @@ const Page = () => {
                           {project.name}
                         </h2>
                         <div className={styles.cardDeadline}>
-                          <FontAwesomeIcon icon={faCalendar} color={`${project.color}`}/>
+                          <FontAwesomeIcon icon={faCalendar} color={`${project.color}`} className={styles.calenderIcon}/>
                           <span className={styles.cardDeadlineDate}>
                             {dayjs(project.deadline).format("YYYY/MM/DD")}
                           </span>
@@ -70,7 +70,7 @@ const Page = () => {
                         <div className={styles.cardStats}>
                           <div className={styles.cardMilestone}>
                             <span>
-                              <FontAwesomeIcon icon={faCodeCommit} color={`${project.color}`}/>
+                              <FontAwesomeIcon icon={faCodeCommit} color={`${project.color}`} className={styles.codeCommitIcon}/>
                             </span>
                             <span className={styles.cardStatsText}>{project.stats.kinds.milestone}</span>
                           </div>
