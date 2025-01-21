@@ -13,6 +13,7 @@ import dayjs from "dayjs";
 
 const Page = () => {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [currentPage, setCurrentPage] = useState(1)
   useEffect(() => {
     const getProjects = async () => {
       const data = await fetchProjects();
@@ -30,7 +31,10 @@ const Page = () => {
         </div>
         <div className={styles.body}>
           <div className={styles.projectsHeader}>
-            <p className={styles.title}>1/1(3件)</p>
+            <p className={styles.title}>
+              <span>{`${currentPage} / 1`}</span>
+              <span>{` (${projects.length}件) `}</span>
+            </p>
           </div>
           <ul className={styles.projectList}>
             {projects.map((project) => {
@@ -52,7 +56,11 @@ const Page = () => {
                           {project.name}
                         </h2>
                         <div className={styles.cardDeadline}>
-                          <FontAwesomeIcon icon={faCalendar} color={`${project.color}`} className={styles.calenderIcon}/>
+                          <FontAwesomeIcon
+                            icon={faCalendar}
+                            color={`${project.color}`}
+                            className={styles.calenderIcon}
+                          />
                           <span className={styles.cardDeadlineDate}>
                             {dayjs(project.deadline).format("YYYY/MM/DD")}
                           </span>
@@ -70,15 +78,26 @@ const Page = () => {
                         <div className={styles.cardStats}>
                           <div className={styles.cardMilestone}>
                             <span>
-                              <FontAwesomeIcon icon={faCodeCommit} color={`${project.color}`} className={styles.codeCommitIcon}/>
+                              <FontAwesomeIcon
+                                icon={faCodeCommit}
+                                color={`${project.color}`}
+                                className={styles.codeCommitIcon}
+                              />
                             </span>
-                            <span className={styles.cardStatsText}>{project.stats.kinds.milestone}</span>
+                            <span className={styles.cardStatsText}>
+                              {project.stats.kinds.milestone}
+                            </span>
                           </div>
                           <div className={styles.cardTask}>
                             <span className={styles.cardIcon}>
-                              <FontAwesomeIcon icon={faFile} color={`${project.color}`}/>
+                              <FontAwesomeIcon
+                                icon={faFile}
+                                color={`${project.color}`}
+                              />
                             </span>
-                            <span className={styles.cardStatsText}>{project.stats.kinds.task}</span>
+                            <span className={styles.cardStatsText}>
+                              {project.stats.kinds.task}
+                            </span>
                           </div>
                         </div>
                       </div>
