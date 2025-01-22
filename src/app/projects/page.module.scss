@@ -41,6 +41,9 @@
   margin-bottom: 16px;
   background: vars.$backgroundColor;
   transition: all 0.5s;
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
 .cardHeader {
