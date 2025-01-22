@@ -13,12 +13,15 @@ import dayjs from "dayjs";
 
 const Page = () => {
   const [projects, setProjects] = useState<Project[]>([]);
-  const [currentPage, setCurrentPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [endPage, setEndPage] = useState(0);
   useEffect(() => {
     const getProjects = async () => {
-      const data = await fetchProjects();
+      const { data, pageInfo } = await fetchProjects();
       if (data) {
         setProjects(data);
+        setCurrentPage(pageInfo.page);
+        setEndPage(Math.floor(pageInfo.totalCount / pageInfo.limit) + 1);
       }
     };
     getProjects();
@@ -32,7 +35,7 @@ const Page = () => {
         <div className={styles.body}>
           <div className={styles.projectsHeader}>
             <p className={styles.title}>
-              <span>{`${currentPage} / 1`}</span>
+              <span>{`${currentPage} / ${endPage}`}</span>
               <span>{` (${projects.length}件) `}</span>
             </p>
           </div>
