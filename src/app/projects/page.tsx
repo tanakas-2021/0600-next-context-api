@@ -10,13 +10,13 @@ const Page = () => {
   const [endPage, setEndPage] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   useEffect(() => {
-    const getProjects = async () => {
+    const getPageInfo = async () => {
       const { pageInfo } = await fetchProjects();
       setCurrentPage(pageInfo.page);
       setEndPage(Math.floor(pageInfo.totalCount / pageInfo.limit) + 1);
       setTotalCount(pageInfo.totalCount);
     };
-    getProjects();
+    getPageInfo();
   }, []);
   return (
     <div className={styles.container}>
