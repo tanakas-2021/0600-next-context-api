@@ -7,9 +7,9 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import dayjs from "dayjs";
-import { Project, projectsResponse } from "../../types/types";
+import { Project } from "../../types/types";
+import { fetchProjects } from "@/utils/projects";
 
 export const Sidebar = () => {
   const [isShow, setIsShow] = useState(true);
@@ -20,17 +20,13 @@ export const Sidebar = () => {
     setIsShow(newIsShow);
   };
   useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await axios.get<projectsResponse>(
-          "http://localhost:3000/api/v1/users/projects"
-        );
-        setProjects(response.data.data);
-      } catch {
-        alert("データの取得に失敗しました");
+    const getProjects = async () => {
+      const { data } = await fetchProjects();
+      if (data) {
+        setProjects(data);
       }
     };
-    fetchProjects();
+    getProjects();
   }, []);
   return (
     <div className={isShow ? styles.sidebarShow : styles.sidebarHidden}>
