@@ -21,9 +21,13 @@ export const Sidebar = () => {
   };
   useEffect(() => {
     const getProjects = async () => {
-      const { data } = await fetchProjects();
-      if (data) {
-        setProjects(data);
+      try {
+        const { data } = await fetchProjects();
+        if (data) {
+          setProjects(data);
+        }
+      } catch {
+        alert("データの取得に失敗しました");
       }
     };
     getProjects();

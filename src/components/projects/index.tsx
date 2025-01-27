@@ -15,8 +15,12 @@ export const Projects = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   useEffect(() => {
     const getProjects = async () => {
-      const { data } = await fetchProjects();
-      setProjects(data);
+      try {
+        const { data } = await fetchProjects();
+        setProjects(data);
+      } catch {
+        alert("データの取得に失敗しました");
+      }
     };
     getProjects();
   }, []);

@@ -11,10 +11,14 @@ const Page = () => {
   const [totalCount, setTotalCount] = useState(0);
   useEffect(() => {
     const getPageInfo = async () => {
-      const { pageInfo } = await fetchProjects();
-      setCurrentPage(pageInfo.page);
-      setEndPage(Math.floor(pageInfo.totalCount / pageInfo.limit) + 1);
-      setTotalCount(pageInfo.totalCount);
+      try {
+        const { pageInfo } = await fetchProjects();
+        setCurrentPage(pageInfo.page);
+        setEndPage(Math.floor(pageInfo.totalCount / pageInfo.limit) + 1);
+        setTotalCount(pageInfo.totalCount);
+      } catch {
+        alert("データの取得に失敗しました");
+      }
     };
     getPageInfo();
   }, []);
