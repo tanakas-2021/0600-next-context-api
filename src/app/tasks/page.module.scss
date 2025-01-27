@@ -1,0 +1,109 @@
+@use "../../app/variables.module.scss" as vars;
+
+.title {
+  font-weight: 300;
+  font-size: 12px;
+}
+
+.container {
+  width: 100%;
+}
+
+.header {
+  border-bottom: 1px solid vars.$tableBorderColor;
+  margin: 16px 0;
+}
+
+.headerControl {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerNumber {
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.headerPageIndex {
+  margin-right: 16px;
+}
+
+.headerPageCount {
+  margin-right: 16px;
+}
+
+.headerTotal {
+  display: inline-block;
+  margin-right: 16px;
+}
+
+.table {
+  width: 100%;
+}
+
+.tableHeader {
+  display: flex;
+  border-bottom: 1px solid vars.$tableBorderColor;
+}
+
+.tableHeaderCell {
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.tableCellTask {
+  width: 50%;
+}
+
+.tableCellProject {
+  width: 14%;
+}
+
+.tableCellStatus {
+  width: 12%;
+}
+
+.tableCellDeadline {
+  width: 14%;
+}
+
+.tableCellDetail {
+  width: 4%;
+}
+
+.tableRow {
+  display: flex;
+  padding: 8px 0;
+  transition: all 0.5s;
+}
+
+.tableCell {
+  font-size: 10px;
+}
+
+.taskContent {
+  cursor: pointer;
+  width: 100%;
+}
+
+.projectContent {
+  display: flex;
+  align-items: center;
+  background: var(--background-color);
+  border-radius: 4px;
+  justify-content: space-between;
+  width: 80%;
+  border: 0;
+  box-shadow: none;
+}
+
+.projectName {
+  font-size: 10px;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}
