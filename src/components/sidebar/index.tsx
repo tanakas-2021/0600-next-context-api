@@ -6,32 +6,19 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import dayjs from "dayjs";
-import { Project } from "../../types/types";
-import { fetchProjects } from "@/utils/projects";
+import { useContext } from "react";
+import { ProjectsContext } from "@/contexts/projects";
 
 export const Sidebar = () => {
   const [isShow, setIsShow] = useState(true);
-  const [projects, setProjects] = useState<Project[]>([]);
+  const {projects} = useContext(ProjectsContext);
 
   const onClickToggle = () => {
     const newIsShow = !isShow;
     setIsShow(newIsShow);
   };
-  useEffect(() => {
-    const getProjects = async () => {
-      try {
-        const { data } = await fetchProjects();
-        if (data) {
-          setProjects(data);
-        }
-      } catch {
-        alert("データの取得に失敗しました");
-      }
-    };
-    getProjects();
-  }, []);
   return (
     <div className={isShow ? styles.sidebarShow : styles.sidebarHidden}>
       <div className={styles.sidebarContents}>

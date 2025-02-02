@@ -19,6 +19,7 @@ export interface Project {
     };
     total: number;
   };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   milestones: any[];
   status: "active" | "inactive";
   createdAt: string;
@@ -34,6 +35,6 @@ export interface PageInfo {
 }
 
 export interface projectsResponse {
-  data: Project[];
+  projects: Project[];
   pageInfo: PageInfo;
 }

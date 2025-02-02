@@ -4,26 +4,14 @@ import {
   faCodeCommit,
   faFile,
 } from "@fortawesome/free-solid-svg-icons";
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import dayjs from "dayjs";
 
-import { Project } from "@/types/types";
 import styles from "./index.module.scss";
-import { fetchProjects } from "@/utils/projects";
+import { ProjectsContext } from "@/contexts/projects";
 
 export const Projects = () => {
-  const [projects, setProjects] = useState<Project[]>([]);
-  useEffect(() => {
-    const getProjects = async () => {
-      try {
-        const { data } = await fetchProjects();
-        setProjects(data);
-      } catch {
-        alert("データの取得に失敗しました");
-      }
-    };
-    getProjects();
-  }, []);
+  const {projects} = useContext(ProjectsContext);
   return (
     <ul className={styles.projectList}>
       {projects.map((project) => {

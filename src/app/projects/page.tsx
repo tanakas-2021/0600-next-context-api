@@ -1,27 +1,24 @@
 "use client";
-import styles from "./page.module.scss";
-import React, { useEffect, useState } from "react";
 
-import { fetchProjects } from "@/utils/projects";
+import styles from "./page.module.scss";
+import React, { useContext, useEffect, useState } from "react";
+import { ProjectsContext } from "@/contexts/projects";
 import { Projects } from "@/components/projects";
 
 const Page = () => {
+  const { pageInfo } = useContext(ProjectsContext);
   const [currentPage, setCurrentPage] = useState(1);
-  const [endPage, setEndPage] = useState(0);
-  const [totalCount, setTotalCount] = useState(0);
+  const [endPage, setEndPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(1);
+
   useEffect(() => {
-    const getPageInfo = async () => {
-      try {
-        const { pageInfo } = await fetchProjects();
-        setCurrentPage(pageInfo.page);
-        setEndPage(Math.floor(pageInfo.totalCount / pageInfo.limit) + 1);
-        setTotalCount(pageInfo.totalCount);
-      } catch {
-        alert("データの取得に失敗しました");
-      }
-    };
-    getPageInfo();
-  }, []);
+    if (pageInfo) {
+      setCurrentPage(pageInfo.page);
+      setEndPage(Math.floor(pageInfo.totalCount / pageInfo.limit) + 1);
+      setTotalCount(pageInfo.totalCount);
+    }
+  },[]);
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
