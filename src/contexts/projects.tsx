@@ -2,7 +2,7 @@
 
 import React, { createContext, useState, useEffect, ReactNode } from "react";
 import { Project, PageInfo, projectsResponse } from "@/types/types";
-import { fetchProjects } from "@/utils/projects";
+import { fetchProjects } from "@/services/api/index";
 
 export const ProjectsContext = createContext<projectsResponse>({
   projects: [],
