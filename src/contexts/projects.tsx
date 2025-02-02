@@ -1,10 +1,48 @@
 "use client";
 
 import React, { createContext, useState, useEffect, ReactNode } from "react";
-import { Project, PageInfo, projectsResponse } from "@/types/types";
 import { fetchProjects } from "@/services/api/index";
 
-export const ProjectsContext = createContext<projectsResponse>({
+interface Project {
+  id: string;
+  name: string;
+  deadline: string;
+  slug: string;
+  goal: string;
+  shouldbe: string;
+  color: string;
+  stats: {
+    kinds: {
+      milestone: number;
+      task: number;
+      total: number;
+    };
+    states: {
+      scheduled: number;
+      archived: number;
+      completed: number;
+    };
+    total: number;
+  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  milestones: any[];
+  status: "active" | "inactive";
+  createdAt: string;
+  updatedAt: string;
+}
+
+interface PageInfo {
+  page: number;
+  limit: number;
+  totalCount: number;
+  hasNext: boolean;
+  hasPrevious: boolean;
+}
+
+export const ProjectsContext = createContext<{
+  projects: Project[];
+  pageInfo: PageInfo;
+}>({
   projects: [],
   pageInfo: {
     page: 1,
