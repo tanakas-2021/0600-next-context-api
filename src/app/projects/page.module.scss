@@ -1,1 +1,26 @@
+@use "../../app/variables.module" as vars;
 
+.container {
+  margin: 32px;
+  background: vars.$backgroundColor;
+}
+
+.content {
+  padding: 32px;
+}
+
+.title {
+  font-weight: 200;
+  font-size: 10px;
+}
+
+.body {
+  max-width: 800px;
+  margin: 64px auto auto;
+}
+
+.projectsHeader {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+}

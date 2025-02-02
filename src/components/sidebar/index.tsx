@@ -6,32 +6,19 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import dayjs from "dayjs";
-import { Project, projectsResponse } from "../../types/types";
+import { useContext } from "react";
+import { ProjectsContext } from "@/contexts/projects";
 
 export const Sidebar = () => {
   const [isShow, setIsShow] = useState(true);
-  const [projects, setProjects] = useState<Project[]>([]);
+  const {projects} = useContext(ProjectsContext);
 
   const onClickToggle = () => {
     const newIsShow = !isShow;
     setIsShow(newIsShow);
   };
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await axios.get<projectsResponse>(
-          "http://localhost:3000/api/v1/users/projects"
-        );
-        setProjects(response.data.data);
-      } catch {
-        alert("データの取得に失敗しました");
-      }
-    };
-    fetchProjects();
-  }, []);
   return (
     <div className={isShow ? styles.sidebarShow : styles.sidebarHidden}>
       <div className={styles.sidebarContents}>
@@ -73,10 +60,18 @@ export const Sidebar = () => {
                       key={project.id}
                       className={styles.sidebarProjectListItem}
                     >
+                      <div
+                        className={styles.sidebarProjectDot}
+                        style={
+                          {
+                            "--dot-color": `${project.color}`,
+                          } as React.CSSProperties
+                        }
+                      />
                       <div>{project.name}</div>
-                      <span className={styles.sidebarProjectDeadline}>
+                      <div className={styles.sidebarProjectDeadline}>
                         {dayjs(project.deadline).format("YYYY/MM/DD")}
-                      </span>
+                      </div>
                     </li>
                   );
                 })}
