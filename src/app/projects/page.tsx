@@ -17,7 +17,7 @@ const Page = () => {
       setEndPage(Math.floor(pageInfo.totalCount / pageInfo.limit) + 1);
       setTotalCount(pageInfo.totalCount);
     }
-  },[]);
+  },[pageInfo]);
 
   return (
     <div className={styles.container}>
