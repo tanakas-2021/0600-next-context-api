@@ -28,6 +28,19 @@ interface Project {
   updatedAt: string;
 }
 
+interface Task {
+  id: string;
+  description: string;
+  kind: string;
+  title: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  deadline: string;
+  children: [];
+  project: Project;
+}
+
 interface PageInfo {
   page: number;
   limit: number;
@@ -49,6 +62,21 @@ export const fetchProjects = async (): Promise<{
     const response = await instance.get("users/projects");
     return {
       projects: response.data.data,
+      pageInfo: response.data.pageInfo,
+    };
+  } catch {
+    throw new Error();
+  }
+};
+
+export const fetchTasks = async (): Promise<{
+  tasks: Task[];
+  pageInfo: PageInfo;
+}> => {
+  try {
+    const response = await instance.get("users/tasks");
+    return {
+      tasks: response.data.data,
       pageInfo: response.data.pageInfo,
     };
   } catch {
