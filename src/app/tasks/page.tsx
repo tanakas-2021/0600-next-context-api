@@ -76,7 +76,7 @@ const Page = () => {
       }
     };
     getTasks();
-  },[]);
+  }, []);
   return (
     <>
       <div>
@@ -151,7 +151,12 @@ const Page = () => {
                   <div
                     className={`${styles.tableCell} ${styles.tableCellStatus}`}
                   >
-                    {getStatusLabel(task.status)}
+                    <div className={styles.projectContent}>
+                      <div className={styles.projectName}>
+                        {getStatusLabel(task.status)}
+                      </div>
+                      <FontAwesomeIcon icon={faChevronDown} />
+                    </div>
                   </div>
                   <div
                     className={`${styles.tableCell} ${styles.tableCellDeadline}`}
