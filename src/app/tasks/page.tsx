@@ -54,6 +54,13 @@ interface Project {
   updatedAt: string;
 }
 
+const statusMap: Record<string, string> = {
+  scheduled: "未完了",
+  completed: "完了",
+};
+
+const getStatusLabel = (status: string) => statusMap[status] || "不明";
+
 const Page = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [pageInfo, setPageInfo] = useState<PageInfo>();
@@ -143,7 +150,7 @@ const Page = () => {
                   <div
                     className={`${styles.tableCell} ${styles.tableCellStatus}`}
                   >
-                    {task.status}
+                    {getStatusLabel(task.status)}
                   </div>
                   <div
                     className={`${styles.tableCell} ${styles.tableCellDeadline}`}
