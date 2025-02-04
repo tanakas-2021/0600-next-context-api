@@ -4,9 +4,59 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import styles from "./page.module.scss";
 import { useEffect, useState } from "react";
 import { fetchTasks } from "@/services/api";
+
+interface PageInfo {
+  page: number;
+  limit: number;
+  totalCount: number;
+  hasNext: boolean;
+  hasPrevious: boolean;
+}
+
+interface Task {
+  id: string;
+  description: string;
+  kind: string;
+  title: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+  deadline: string;
+  children: [];
+  project: Project;
+}
+
+interface Project {
+  id: string;
+  name: string;
+  deadline: string;
+  slug: string;
+  goal: string;
+  shouldbe: string;
+  color: string;
+  stats: {
+    kinds: {
+      milestone: number;
+      task: number;
+      total: number;
+    };
+    states: {
+      scheduled: number;
+      archived: number;
+      completed: number;
+    };
+    total: number;
+  };
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  milestones: any[];
+  status: "active" | "inactive";
+  createdAt: string;
+  updatedAt: string;
+}
+
 const Page = () => {
-  const [tasks, setTasks] = useState();
-  const [pageInfo, setPageInfo] = useState();
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [pageInfo, setPageInfo] = useState<PageInfo>();
   useEffect(() => {
     const getTasks = async () => {
       try {
@@ -18,7 +68,7 @@ const Page = () => {
       }
     };
     getTasks();
-  });
+  },[]);
   return (
     <>
       <div>
@@ -72,35 +122,41 @@ const Page = () => {
             ></div>
           </div>
           <div>
-            {tasks.map((task) => {
-              <div className={styles.tableRow}>
-                <div className={`${styles.tableCell} ${styles.tableCellTask}`}>
-                  <div className={styles.taskContent}>{task.title}</div>
-                </div>
-                <div
-                  className={`${styles.tableCell} ${styles.tableCellProject}`}
-                >
-                  <div className={styles.projectContent}>
-                    <div className={styles.projectName}>{task.project.name}</div>
-                    <FontAwesomeIcon icon={faChevronDown} />
+            {(tasks ?? []).map((task) => {
+              return (
+                <div key={task.id} className={styles.tableRow}>
+                  <div
+                    className={`${styles.tableCell} ${styles.tableCellTask}`}
+                  >
+                    <div className={styles.taskContent}>{task.title}</div>
+                  </div>
+                  <div
+                    className={`${styles.tableCell} ${styles.tableCellProject}`}
+                  >
+                    <div className={styles.projectContent}>
+                      <div className={styles.projectName}>
+                        {task.project.name}
+                      </div>
+                      <FontAwesomeIcon icon={faChevronDown} />
+                    </div>
+                  </div>
+                  <div
+                    className={`${styles.tableCell} ${styles.tableCellStatus}`}
+                  >
+                    {task.status}
+                  </div>
+                  <div
+                    className={`${styles.tableCell} ${styles.tableCellDeadline}`}
+                  >
+                    {task.deadline}
+                  </div>
+                  <div
+                    className={`${styles.tableCell} ${styles.tableCellDetail}`}
+                  >
+                    詳細
                   </div>
                 </div>
-                <div
-                  className={`${styles.tableCell} ${styles.tableCellStatus}`}
-                >
-                  {task.status}
-                </div>
-                <div
-                  className={`${styles.tableCell} ${styles.tableCellDeadline}`}
-                >
-                  {task.deadline}
-                </div>
-                <div
-                  className={`${styles.tableCell} ${styles.tableCellDetail}`}
-                >
-                  詳細
-                </div>
-              </div>;
+              );
             })}
           </div>
         </div>

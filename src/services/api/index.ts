@@ -54,6 +54,8 @@ const instance = axios.create({
   timeout: 1000,
 });
 
+const maxCount = 100;
+
 export const fetchProjects = async (): Promise<{
   projects: Project[];
   pageInfo: PageInfo;
@@ -74,7 +76,11 @@ export const fetchTasks = async (): Promise<{
   pageInfo: PageInfo;
 }> => {
   try {
-    const response = await instance.get("users/tasks");
+    const response = await instance.get("users/tasks", {
+      params: {
+        limit: maxCount,
+      },
+    });
     return {
       tasks: response.data.data,
       pageInfo: response.data.pageInfo,
