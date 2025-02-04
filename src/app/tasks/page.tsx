@@ -4,6 +4,7 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import styles from "./page.module.scss";
 import { useEffect, useState } from "react";
 import { fetchTasks } from "@/services/api";
+import dayjs from "dayjs";
 
 interface PageInfo {
   page: number;
@@ -155,7 +156,7 @@ const Page = () => {
                   <div
                     className={`${styles.tableCell} ${styles.tableCellDeadline}`}
                   >
-                    {task.deadline}
+                    {dayjs(task.deadline).format("YYYY/MM/DD")}
                   </div>
                   <div
                     className={`${styles.tableCell} ${styles.tableCellDetail}`}
