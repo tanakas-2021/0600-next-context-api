@@ -1,6 +1,6 @@
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown,faCircleChevronRight } from "@fortawesome/free-solid-svg-icons";
 import styles from "./page.module.scss";
 import { useEffect, useState } from "react";
 import { fetchTasks } from "@/services/api";
@@ -166,7 +166,7 @@ const Page = () => {
                   <div
                     className={`${styles.tableCell} ${styles.tableCellDetail}`}
                   >
-                    詳細
+                    <FontAwesomeIcon icon={faCircleChevronRight} />
                   </div>
                 </div>
               );
