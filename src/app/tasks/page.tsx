@@ -172,7 +172,7 @@ const Page = () => {
                   <div
                     className={`${styles.tableCell} ${styles.tableCellDetail}`}
                   >
-                    <FontAwesomeIcon icon={faCircleChevronRight} />
+                    <FontAwesomeIcon icon={faCircleChevronRight} size="xl"/>
                   </div>
                 </div>
               );
