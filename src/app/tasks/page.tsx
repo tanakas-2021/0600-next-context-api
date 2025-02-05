@@ -1,10 +1,14 @@
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown,faCircleChevronRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronDown,
+  faCircleChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 import styles from "./page.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { fetchTasks } from "@/services/api";
 import dayjs from "dayjs";
+import { ProjectsContext } from "@/contexts/projects";
 
 interface PageInfo {
   page: number;
@@ -59,12 +63,13 @@ const statusMap: Record<string, string> = {
   scheduled: "未完了",
   completed: "完了",
 };
-
 const getStatusLabel = (status: string) => statusMap[status] || "不明";
 
 const Page = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [pageInfo, setPageInfo] = useState<PageInfo>();
+  const { projects } = useContext(ProjectsContext);
+  const projectOptions = projects.map((project) => project.name);
   useEffect(() => {
     const getTasks = async () => {
       try {
@@ -146,6 +151,7 @@ const Page = () => {
                         {task.project.name}
                       </div>
                       <FontAwesomeIcon icon={faChevronDown} />
+                      
                     </div>
                   </div>
                   <div
