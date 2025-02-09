@@ -7,17 +7,9 @@ import { Projects } from "@/components/projects";
 
 const Page = () => {
   const { pageInfo } = useContext(ProjectsContext);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [endPage, setEndPage] = useState(1);
-  const [totalCount, setTotalCount] = useState(1);
-
-  useEffect(() => {
-    if (pageInfo) {
-      setCurrentPage(pageInfo.page);
-      setEndPage(Math.floor(pageInfo.totalCount / pageInfo.limit) + 1);
-      setTotalCount(pageInfo.totalCount);
-    }
-  },[pageInfo]);
+  const currentPage = pageInfo.page;
+  const endPage = Math.floor(pageInfo.totalCount / pageInfo.limit) + 1;
+  const totalCount = pageInfo.totalCount;
 
   return (
     <div className={styles.container}>
