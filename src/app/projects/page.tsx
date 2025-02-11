@@ -1,12 +1,12 @@
 "use client";
 
 import styles from "./page.module.scss";
-import React, { useContext } from "react";
-import { ProjectsContext } from "@/contexts/projects";
+import React from "react";
 import { Projects } from "@/components/projects";
+import { useProjects } from '../../hooks/useProjects';
 
 const Page = () => {
-  const { pageInfo } = useContext(ProjectsContext);
+  const { pageInfo } = useProjects();
   const currentPage = pageInfo.page;
   const endPage = Math.floor(pageInfo.totalCount / pageInfo.limit) + 1;
   const totalCount = pageInfo.totalCount;

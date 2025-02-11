@@ -8,12 +8,11 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import React, { useState } from "react";
 import dayjs from "dayjs";
-import { useContext } from "react";
-import { ProjectsContext } from "@/contexts/projects";
+import { useProjects } from "@/hooks/useProjects";
 
 export const Sidebar = () => {
   const [isShow, setIsShow] = useState(true);
-  const {projects} = useContext(ProjectsContext);
+  const { projects } = useProjects();
 
   const onClickToggle = () => {
     const newIsShow = !isShow;
