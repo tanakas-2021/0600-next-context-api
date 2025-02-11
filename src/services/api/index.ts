@@ -28,7 +28,7 @@ export interface Project {
   updatedAt: string;
 }
 
-interface Task {
+export interface Task {
   id: string;
   description: string;
   kind: string;

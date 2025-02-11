@@ -9,55 +9,7 @@ import { useEffect, useState, useContext } from "react";
 import { fetchTasks } from "@/services/api";
 import dayjs from "dayjs";
 import { ProjectsContext } from "@/contexts/projects";
-
-interface PageInfo {
-  page: number;
-  limit: number;
-  totalCount: number;
-  hasNext: boolean;
-  hasPrevious: boolean;
-}
-
-interface Task {
-  id: string;
-  description: string;
-  kind: string;
-  title: string;
-  status: string;
-  createdAt: string;
-  updatedAt: string;
-  deadline: string;
-  children: [];
-  project: Project;
-}
-
-interface Project {
-  id: string;
-  name: string;
-  deadline: string;
-  slug: string;
-  goal: string;
-  shouldbe: string;
-  color: string;
-  stats: {
-    kinds: {
-      milestone: number;
-      task: number;
-      total: number;
-    };
-    states: {
-      scheduled: number;
-      archived: number;
-      completed: number;
-    };
-    total: number;
-  };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  milestones: any[];
-  status: "active" | "inactive";
-  createdAt: string;
-  updatedAt: string;
-}
+import { PageInfo, Task } from "@/services/api";
 
 const statusMap: Record<string, string> = {
   scheduled: "未完了",
@@ -151,7 +103,6 @@ const Page = () => {
                         {task.project.name}
                       </div>
                       <FontAwesomeIcon icon={faChevronDown} />
-                      
                     </div>
                   </div>
                   <div
@@ -172,7 +123,7 @@ const Page = () => {
                   <div
                     className={`${styles.tableCell} ${styles.tableCellDetail}`}
                   >
-                    <FontAwesomeIcon icon={faCircleChevronRight} size="xl"/>
+                    <FontAwesomeIcon icon={faCircleChevronRight} size="xl" />
                   </div>
                 </div>
               );
