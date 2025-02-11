@@ -1,6 +1,6 @@
 import axios from "axios";
 
-interface Project {
+export interface Project {
   id: string;
   name: string;
   deadline: string;
@@ -28,7 +28,7 @@ interface Project {
   updatedAt: string;
 }
 
-interface PageInfo {
+export interface PageInfo {
   page: number;
   limit: number;
   totalCount: number;
