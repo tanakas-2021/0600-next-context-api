@@ -45,14 +45,10 @@ export const fetchProjects = async (): Promise<{
   projects: Project[];
   pageInfo: PageInfo;
 }> => {
-  try {
-    const response = await instance.get("users/projects");
-    const { data, pageInfo } = response.data;
-    return {
-      projects: data,
-      pageInfo,
-    };
-  } catch {
-    throw new Error();
-  }
+  const response = await instance.get("users/projects");
+  const { data, pageInfo } = response.data;
+  return {
+    projects: data,
+    pageInfo,
+  };
 };
