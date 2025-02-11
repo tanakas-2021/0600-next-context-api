@@ -1,23 +1,15 @@
 "use client";
 
 import styles from "./page.module.scss";
-import React, { useContext, useEffect, useState } from "react";
-import { ProjectsContext } from "@/contexts/projects";
+import React from "react";
 import { Projects } from "@/components/projects";
+import { useProjects } from '../../hooks/useProjects';
 
 const Page = () => {
-  const { pageInfo } = useContext(ProjectsContext);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [endPage, setEndPage] = useState(1);
-  const [totalCount, setTotalCount] = useState(1);
-
-  useEffect(() => {
-    if (pageInfo) {
-      setCurrentPage(pageInfo.page);
-      setEndPage(Math.floor(pageInfo.totalCount / pageInfo.limit) + 1);
-      setTotalCount(pageInfo.totalCount);
-    }
-  },[pageInfo]);
+  const { pageInfo } = useProjects();
+  const currentPage = pageInfo.page;
+  const endPage = Math.floor(pageInfo.totalCount / pageInfo.limit) + 1;
+  const totalCount = pageInfo.totalCount;
 
   return (
     <div className={styles.container}>

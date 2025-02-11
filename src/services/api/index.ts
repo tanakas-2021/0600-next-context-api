@@ -1,6 +1,6 @@
 import axios from "axios";
 
-interface Project {
+export interface Project {
   id: string;
   name: string;
   deadline: string;
@@ -41,7 +41,7 @@ interface Task {
   project: Project;
 }
 
-interface PageInfo {
+export interface PageInfo {
   page: number;
   limit: number;
   totalCount: number;
@@ -60,15 +60,12 @@ export const fetchProjects = async (): Promise<{
   projects: Project[];
   pageInfo: PageInfo;
 }> => {
-  try {
-    const response = await instance.get("users/projects");
-    return {
-      projects: response.data.data,
-      pageInfo: response.data.pageInfo,
-    };
-  } catch {
-    throw new Error();
-  }
+  const response = await instance.get("users/projects");
+  const { data, pageInfo } = response.data;
+  return {
+    projects: data,
+    pageInfo,
+  };
 };
 
 export const fetchTasks = async (): Promise<{

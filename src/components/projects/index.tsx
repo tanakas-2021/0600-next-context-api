@@ -4,14 +4,14 @@ import {
   faCodeCommit,
   faFile,
 } from "@fortawesome/free-solid-svg-icons";
-import React, { useContext } from "react";
+import React from "react";
 import dayjs from "dayjs";
 
 import styles from "./index.module.scss";
-import { ProjectsContext } from "@/contexts/projects";
+import { useProjects } from "@/hooks/useProjects";
 
 export const Projects = () => {
-  const {projects} = useContext(ProjectsContext);
+  const { projects } = useProjects();
   return (
     <ul className={styles.projectList}>
       {projects.map((project) => {
