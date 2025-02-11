@@ -47,9 +47,10 @@ export const fetchProjects = async (): Promise<{
 }> => {
   try {
     const response = await instance.get("users/projects");
+    const { data, pageInfo } = response.data;
     return {
-      projects: response.data.data,
-      pageInfo: response.data.pageInfo,
+      projects: data,
+      pageInfo,
     };
   } catch {
     throw new Error();
