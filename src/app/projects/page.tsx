@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./page.module.scss";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { ProjectsContext } from "@/contexts/projects";
 import { Projects } from "@/components/projects";
 
