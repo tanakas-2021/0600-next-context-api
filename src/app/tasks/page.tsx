@@ -25,14 +25,23 @@ const Page = () => {
   const handleDropdownClick = (taskId: string) => {
     setOpenDropdown(openDropdown === taskId ? null : taskId); // 既に開いている場合は閉じ、閉じている場合は開く
   };
-  const [selectedProject, setSelectedProject] = useState<
-    Record<string, string>
-  >({});
-  const handleProjectSelect = (taskId: string, projectName: string) => {
-    setSelectedProject((prevSelectedProject) => ({
-      ...prevSelectedProject,
-      [taskId]: projectName, // taskIdをキーとして選択したプロジェクト名を設定
-    }));
+  const handleProjectSelect = (taskId: string, projectId: string) => {
+    const newProject = projects.find((project) => project.id === projectId);
+    // 見つからなかった場合は処理を中断
+    if (!newProject) {
+      alert("選択したプロジェクトが存在しません");
+      return;
+    }
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId
+          ? {
+              ...task,
+              project: newProject,
+            }
+          : task
+      )
+    );
   };
   useEffect(() => {
     const getTasks = async () => {
@@ -116,9 +125,7 @@ const Page = () => {
                     >
                       <div className={styles.selectValueContainer}>
                         <p className={styles.projectName}>
-                          {selectedProject.hasOwnProperty(task.id)
-                            ? selectedProject[task.id]
-                            : task.project.name}
+                          {task.project.name}
                         </p>
                         <div className={styles.iconContainer}>
                           <FontAwesomeIcon icon={faChevronDown} />
@@ -131,7 +138,7 @@ const Page = () => {
                               <li
                                 key={project.id}
                                 onClick={() =>
-                                  handleProjectSelect(task.id, project.name)
+                                  handleProjectSelect(task.id, project.id)
                                 }
                                 className={styles.selectOption}
                               >
