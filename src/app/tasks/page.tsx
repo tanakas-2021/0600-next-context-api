@@ -21,9 +21,18 @@ const Page = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [pageInfo, setPageInfo] = useState<PageInfo>();
   const { projects } = useContext(ProjectsContext);
-  const [openProjectDropdown, setProjectOpenDropdown] = useState<string | null>(null);
+  const [openProjectDropdown, setProjectOpenDropdown] = useState<string | null>(
+    null
+  );
+  const [openStatusDropdown, setStatusOpenDropdown] = useState<string | null>(
+    null
+  );
   const handleDropdownClick = (taskId: string) => {
     setProjectOpenDropdown(openProjectDropdown === taskId ? null : taskId); // 既に開いている場合は閉じ、閉じている場合は開く
+  };
+  const handleStatusDropdownClick = (taskId: string) => {
+    setStatusOpenDropdown(openStatusDropdown === taskId ? null : taskId); // 既に開いている場合は閉じ、閉じている場合は開く
+    console.log(1);
   };
   const handleProjectSelect = (taskId: string, projectId: string) => {
     const newProject = projects.find((project) => project.id === projectId);
@@ -38,6 +47,18 @@ const Page = () => {
           ? {
               ...task,
               project: newProject,
+            }
+          : task
+      )
+    );
+  };
+  const handleStatusSelect = (taskId: string, status: string) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId
+          ? {
+              ...task,
+              status,
             }
           : task
       )
@@ -152,12 +173,34 @@ const Page = () => {
                   </div>
                   <div
                     className={`${styles.tableCell} ${styles.tableCellStatus}`}
+                    onClick={() => handleStatusDropdownClick(task.id)}
                   >
-                    <div className={styles.projectContent}>
-                      <div className={styles.projectName}>
-                        {getStatusLabel(task.status)}
+                    <div
+                      className={`${styles.tableSelector} ${styles.selectContainer}`}
+                    >
+                      <div className={styles.selectValueContainer}>
+                        <p className={styles.projectName}>
+                          {getStatusLabel(task.status)}
+                        </p>
+                        <div className={styles.iconContainer}>
+                          <FontAwesomeIcon icon={faChevronDown} />
+                        </div>
                       </div>
-                      <FontAwesomeIcon icon={faChevronDown} />
+                      <div className={styles.selectPullDownShow}>
+                        {openStatusDropdown === task.id && (
+                          <ul className={styles.selectPullDown}>
+                            {Object.entries(statusMap).map(([key, value]) => (
+                              <li
+                                key={key}
+                                onClick={() => handleStatusSelect(task.id, key)}
+                                className={styles.selectOption}
+                              >
+                                {value}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
                     </div>
                   </div>
                   <div
