@@ -130,6 +130,10 @@
 .selectOption {
   padding: 8px 12px;
   font-size: 10px;
+  &:hover {
+    color: vars.$fontColorLight;
+    background: vars.$optionColor;
+  }
 }
 
 .projectContent {
