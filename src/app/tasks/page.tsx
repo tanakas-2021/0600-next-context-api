@@ -5,7 +5,7 @@ import {
   faCircleChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./page.module.scss";
-import { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { fetchTasks } from "@/services/api";
 import dayjs from "dayjs";
 import { ProjectsContext } from "@/contexts/projects";
@@ -21,7 +21,19 @@ const Page = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [pageInfo, setPageInfo] = useState<PageInfo>();
   const { projects } = useContext(ProjectsContext);
-  const projectOptions = projects.map((project) => project.name);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const handleDropdownClick = (taskId: string) => {
+    setOpenDropdown(openDropdown === taskId ? null : taskId); // 既に開いている場合は閉じ、閉じている場合は開く
+  };
+  const [selectedProject, setSelectedProject] = useState<
+    Record<string, string>
+  >({});
+  const handleProjectSelect = (taskId: string, projectName: string) => {
+    setSelectedProject((prevSelectedProject) => ({
+      ...prevSelectedProject,
+      [taskId]: projectName, // taskIdをキーとして選択したプロジェクト名を設定
+    }));
+  };
   useEffect(() => {
     const getTasks = async () => {
       try {
@@ -87,7 +99,7 @@ const Page = () => {
             ></div>
           </div>
           <div>
-            {(tasks ?? []).map((task) => {
+            {tasks.map((task) => {
               return (
                 <div key={task.id} className={styles.tableRow}>
                   <div
@@ -97,12 +109,38 @@ const Page = () => {
                   </div>
                   <div
                     className={`${styles.tableCell} ${styles.tableCellProject}`}
+                    onClick={() => handleDropdownClick(task.id)}
                   >
-                    <div className={styles.projectContent}>
-                      <div className={styles.projectName}>
-                        {task.project.name}
+                    <div
+                      className={`${styles.tableSelector} ${styles.selectContainer}`}
+                    >
+                      <div className={styles.selectValueContainer}>
+                        <p className={styles.projectName}>
+                          {selectedProject.hasOwnProperty(task.id)
+                            ? selectedProject[task.id]
+                            : task.project.name}
+                        </p>
+                        <div className={styles.iconContainer}>
+                          <FontAwesomeIcon icon={faChevronDown} />
+                        </div>
                       </div>
-                      <FontAwesomeIcon icon={faChevronDown} />
+                      <div className={styles.selectPullDownShow}>
+                        {openDropdown === task.id && (
+                          <ul className={styles.selectPullDown}>
+                            {projects.map((project) => (
+                              <li
+                                key={project.id}
+                                onClick={() =>
+                                  handleProjectSelect(task.id, project.name)
+                                }
+                                className={styles.selectOption}
+                              >
+                                {project.name}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
                     </div>
                   </div>
                   <div

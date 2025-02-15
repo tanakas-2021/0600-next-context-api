@@ -71,19 +71,78 @@
   cursor: pointer;
   width: 100%;
 }
+
+.tableSelector {
+  border: 0;
+  width: 90%;
+  min-height: 100%;
+}
+
+.selectContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.projectName {
+  padding: 0;
+  margin: 0;
+}
+
+.selectValueContainer {
+  box-shadow: none;
+  display: flex;
+  background: vars.$backgroundColor;
+  border-radius: 4px;
+  justify-content: space-between;
+  width: 100%;
+  border: 0;
+  align-items: center;
+}
+
+.iconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.selectPullDownShow {
+  display: block;
+  position: relative;
+  top: 0;
+  width: 100%;
+}
+
+.selectPullDown {
+  position: absolute;
+  z-index: 1;
+  box-shadow: 2px 2px 4px 1px #22222210;
+  background: #fff;
+  min-width: 120px;
+  width: 100%;
+  padding: 8px 0;
+  list-style-type: none;
+}
+
+.selectOption {
+  padding: 8px 12px;
+  font-size: 10px;
+}
+
 .projectContent {
   display: flex;
   align-items: center;
-  background: var(--background-color);
+  background: vars.$backgroundColor;
   border-radius: 4px;
   justify-content: space-between;
   width: 80%;
   border: 0;
   box-shadow: none;
 }
-.projectName {
-  font-size: 10px;
-}
+
 .footer {
   display: flex;
   justify-content: flex-end;
