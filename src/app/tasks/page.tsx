@@ -21,9 +21,9 @@ const Page = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [pageInfo, setPageInfo] = useState<PageInfo>();
   const { projects } = useContext(ProjectsContext);
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const [openProjectDropdown, setProjectOpenDropdown] = useState<string | null>(null);
   const handleDropdownClick = (taskId: string) => {
-    setOpenDropdown(openDropdown === taskId ? null : taskId); // 既に開いている場合は閉じ、閉じている場合は開く
+    setProjectOpenDropdown(openProjectDropdown === taskId ? null : taskId); // 既に開いている場合は閉じ、閉じている場合は開く
   };
   const handleProjectSelect = (taskId: string, projectId: string) => {
     const newProject = projects.find((project) => project.id === projectId);
@@ -132,7 +132,7 @@ const Page = () => {
                         </div>
                       </div>
                       <div className={styles.selectPullDownShow}>
-                        {openDropdown === task.id && (
+                        {openProjectDropdown === task.id && (
                           <ul className={styles.selectPullDown}>
                             {projects.map((project) => (
                               <li
