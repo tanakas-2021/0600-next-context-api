@@ -22,18 +22,21 @@ const Page = () => {
   const [pageInfo, setPageInfo] = useState<PageInfo | null>(null);
   const endPage = pageInfo && Math.ceil(pageInfo.totalCount / pageInfo.limit);
   const { projects } = useContext(ProjectsContext);
-  const [openProjectDropdown, setProjectOpenDropdown] = useState<string | null>(
+  const [openProjectTaskId, setProjectOpenTaskId] = useState<string | null>(
     null
   );
-  const [openStatusDropdown, setStatusOpenDropdown] = useState<string | null>(
+  const [openStatusTaskId, setStatusOpenTaskId] = useState<string | null>(
     null
   );
-  const handleDropdownClick = (taskId: string) => {
-    setProjectOpenDropdown(openProjectDropdown === taskId ? null : taskId); // 既に開いている場合は閉じ、閉じている場合は開く
-  };
-  const handleStatusDropdownClick = (taskId: string) => {
-    setStatusOpenDropdown(openStatusDropdown === taskId ? null : taskId); // 既に開いている場合は閉じ、閉じている場合は開く
-    console.log(1);
+  const handleDropdownClick = (taskId: string, column: string) => {
+    switch (column) {
+      case "project":
+        setProjectOpenTaskId(openProjectTaskId === taskId ? null : taskId); // 既に開いている場合は閉じ、閉じている場合は開く
+        break;
+      case "status":
+        setStatusOpenTaskId(openStatusTaskId === taskId ? null : taskId);
+        break;
+    }
   };
   const handleProjectSelect = (taskId: string, projectId: string) => {
     const newProject = projects.find((project) => project.id === projectId);
@@ -125,9 +128,7 @@ const Page = () => {
               </div>
             </div>
           </div>
-        ) : (
-          null
-        )}
+        ) : null}
 
         <div className={styles.table}>
           <div className={styles.tableHeader}>
@@ -166,7 +167,7 @@ const Page = () => {
                   </div>
                   <div
                     className={`${styles.tableCell} ${styles.tableCellProject}`}
-                    onClick={() => handleDropdownClick(task.id)}
+                    onClick={() => handleDropdownClick(task.id, "project")}
                   >
                     <div
                       className={`${styles.tableSelector} ${styles.selectContainer}`}
@@ -180,7 +181,7 @@ const Page = () => {
                         </div>
                       </div>
                       <div className={styles.selectPullDownShow}>
-                        {openProjectDropdown === task.id && (
+                        {openProjectTaskId === task.id && (
                           <ul className={styles.selectPullDown}>
                             {projects.map((project) => (
                               <li
@@ -200,7 +201,7 @@ const Page = () => {
                   </div>
                   <div
                     className={`${styles.tableCell} ${styles.tableCellStatus}`}
-                    onClick={() => handleStatusDropdownClick(task.id)}
+                    onClick={() => handleDropdownClick(task.id, "status")}
                   >
                     <div
                       className={`${styles.tableSelector} ${styles.selectContainer}`}
@@ -214,7 +215,7 @@ const Page = () => {
                         </div>
                       </div>
                       <div className={styles.selectPullDownShow}>
-                        {openStatusDropdown === task.id && (
+                        {openStatusTaskId === task.id && (
                           <ul className={styles.selectPullDown}>
                             {Object.entries(statusMap).map(([key, value]) => (
                               <li
