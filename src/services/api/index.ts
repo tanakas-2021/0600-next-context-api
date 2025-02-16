@@ -72,17 +72,14 @@ export const fetchTasks = async (): Promise<{
   tasks: Task[];
   pageInfo: PageInfo;
 }> => {
-  try {
-    const response = await instance.get("users/tasks", {
-      params: {
-        limit: maxCount,
-      },
-    });
-    return {
-      tasks: response.data.data,
-      pageInfo: response.data.pageInfo,
-    };
-  } catch {
-    throw new Error();
-  }
+  const response = await instance.get("users/tasks", {
+    params: {
+      limit: maxCount,
+    },
+  });
+  const { data, pageInfo } = response.data;
+  return {
+    tasks: data,
+    pageInfo,
+  };
 };

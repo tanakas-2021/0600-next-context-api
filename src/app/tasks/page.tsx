@@ -21,6 +21,8 @@ const getStatusLabel = (status: string) => statusMap[status] || "不明";
 const Page = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [pageInfo, setPageInfo] = useState<PageInfo>();
+  const endPage =
+    pageInfo && Math.floor(pageInfo.totalCount / pageInfo.limit) + 1;
   const { projects } = useContext(ProjectsContext);
   const [openProjectDropdown, setProjectOpenDropdown] = useState<string | null>(
     null
@@ -87,18 +89,23 @@ const Page = () => {
           <div className={styles.headerControl}>
             <div className={styles.headerNumber}>
               <div className={styles.headerPageIndex}>
-                <span>1/5</span>
+                <span>{`${pageInfo?.page} / ${endPage}`}</span>
               </div>
               <div className={styles.headerPageCount}>
                 <label htmlFor="displayCount">表示件数：</label>
-                <select id="displayCount" className={styles.displayCountSelecter}>
+                <select
+                  id="displayCount"
+                  className={styles.displayCountSelecter}
+                >
                   <option value="20">20件</option>
                   <option value="50">50件</option>
                   <option value="100">100件</option>
                 </select>
               </div>
               <div>
-                <span className={styles.headerTotal}>100件</span>
+                <span className={styles.headerTotal}>
+                  {`${pageInfo?.totalCount}件`}
+                </span>
               </div>
             </div>
           </div>
@@ -212,7 +219,7 @@ const Page = () => {
                   <div
                     className={`${styles.tableCell} ${styles.tableCellDetail}`}
                   >
-                    <IoArrowForwardOutline size={12}/>
+                    <IoArrowForwardOutline size={12} />
                   </div>
                 </div>
               );
