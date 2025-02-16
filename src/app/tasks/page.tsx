@@ -1,8 +1,6 @@
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronDown,
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { IoArrowForwardOutline } from "react-icons/io5";
 import styles from "./page.module.scss";
 import React, { useEffect, useState, useContext } from "react";
@@ -21,9 +19,8 @@ const maxCountOptions = [20, 50, 100];
 const Page = () => {
   const [maxCount, setMaxCount] = useState(20);
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [pageInfo, setPageInfo] = useState<PageInfo>();
-  const endPage =
-    pageInfo && Math.ceil(pageInfo.totalCount / pageInfo.limit);
+  const [pageInfo, setPageInfo] = useState<PageInfo | null>(null);
+  const endPage = pageInfo && Math.ceil(pageInfo.totalCount / pageInfo.limit);
   const { projects } = useContext(ProjectsContext);
   const [openProjectDropdown, setProjectOpenDropdown] = useState<string | null>(
     null
@@ -89,7 +86,7 @@ const Page = () => {
       }
     };
     getTasks();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
@@ -97,33 +94,41 @@ const Page = () => {
         <h2 className={styles.title}>タスク</h2>
       </div>
       <div className={styles.container}>
-        <div className={styles.header}>
-          <div className={styles.headerControl}>
-            <div className={styles.headerNumber}>
-              <div className={styles.headerPageIndex}>
-                <span>{`${pageInfo?.page} / ${endPage}`}</span>
-              </div>
-              <div className={styles.headerPageCount}>
-                <label htmlFor="displayCount">表示件数：</label>
-                <select
-                  id="displayCount"
-                  className={styles.displayCountSelecter}
-                  value={maxCount}
-                  onChange={(e) => handleMaxCount(Number(e.target.value))}
-                >
-                  {maxCountOptions.map((option) => (
-                    <option key={option} value={option}>{`${option}件`}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <span className={styles.headerTotal}>
-                  {`${pageInfo?.totalCount}件`}
-                </span>
+        {pageInfo ? (
+          <div className={styles.header}>
+            <div className={styles.headerControl}>
+              <div className={styles.headerNumber}>
+                <div className={styles.headerPageIndex}>
+                  <span>{`${pageInfo?.page} / ${endPage}`}</span>
+                </div>
+                <div className={styles.headerPageCount}>
+                  <label htmlFor="displayCount">表示件数：</label>
+                  <select
+                    id="displayCount"
+                    className={styles.displayCountSelecter}
+                    value={maxCount}
+                    onChange={(e) => handleMaxCount(Number(e.target.value))}
+                  >
+                    {maxCountOptions.map((option) => (
+                      <option
+                        key={option}
+                        value={option}
+                      >{`${option}件`}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <span className={styles.headerTotal}>
+                    {`${pageInfo?.totalCount}件`}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          null
+        )}
+
         <div className={styles.table}>
           <div className={styles.tableHeader}>
             <div
