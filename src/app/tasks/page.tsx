@@ -2,7 +2,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronDown,
-  faCircleChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { IoArrowForwardOutline } from "react-icons/io5";
 import styles from "./page.module.scss";
