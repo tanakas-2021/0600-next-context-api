@@ -17,8 +17,10 @@ const statusMap: Record<string, string> = {
   completed: "完了",
 };
 const getStatusLabel = (status: string) => statusMap[status] || "不明";
+const maxCountOptions = [20, 50, 100];
 
 const Page = () => {
+  const [maxCount, setMaxCount] = useState(20);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [pageInfo, setPageInfo] = useState<PageInfo>();
   const endPage =
@@ -67,10 +69,20 @@ const Page = () => {
       )
     );
   };
+  const handleMaxCount = async (count: number) => {
+    try {
+      setMaxCount(count);
+      const { tasks, pageInfo } = await fetchTasks(count);
+      setTasks(tasks);
+      setPageInfo(pageInfo);
+    } catch {
+      alert("データの取得に失敗しました");
+    }
+  };
   useEffect(() => {
     const getTasks = async () => {
       try {
-        const { tasks, pageInfo } = await fetchTasks();
+        const { tasks, pageInfo } = await fetchTasks(maxCount);
         setTasks(tasks);
         setPageInfo(pageInfo);
       } catch {
@@ -96,10 +108,12 @@ const Page = () => {
                 <select
                   id="displayCount"
                   className={styles.displayCountSelecter}
+                  value={maxCount}
+                  onChange={(e) => handleMaxCount(Number(e.target.value))}
                 >
-                  <option value="20">20件</option>
-                  <option value="50">50件</option>
-                  <option value="100">100件</option>
+                  {maxCountOptions.map((option) => (
+                    <option key={option} value={option}>{`${option}件`}</option>
+                  ))}
                 </select>
               </div>
               <div>
