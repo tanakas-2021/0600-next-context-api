@@ -23,7 +23,7 @@ const Page = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [pageInfo, setPageInfo] = useState<PageInfo>();
   const endPage =
-    pageInfo && Math.floor(pageInfo.totalCount / pageInfo.limit) + 1;
+    pageInfo && Math.ceil(pageInfo.totalCount / pageInfo.limit);
   const { projects } = useContext(ProjectsContext);
   const [openProjectDropdown, setProjectOpenDropdown] = useState<string | null>(
     null
