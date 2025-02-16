@@ -4,6 +4,7 @@ import {
   faChevronDown,
   faCircleChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
+import { IoArrowForwardOutline } from "react-icons/io5";
 import styles from "./page.module.scss";
 import React, { useEffect, useState, useContext } from "react";
 import { fetchTasks } from "@/services/api";
@@ -211,7 +212,7 @@ const Page = () => {
                   <div
                     className={`${styles.tableCell} ${styles.tableCellDetail}`}
                   >
-                    <FontAwesomeIcon icon={faCircleChevronRight} size="xl" />
+                    <IoArrowForwardOutline size={12}/>
                   </div>
                 </div>
               );
