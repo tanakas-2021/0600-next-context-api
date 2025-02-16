@@ -91,7 +91,7 @@ const Page = () => {
               </div>
               <div className={styles.headerPageCount}>
                 <label htmlFor="displayCount">表示件数：</label>
-                <select id="displayCount">
+                <select id="displayCount" className={styles.displayCountSelecter}>
                   <option value="20">20件</option>
                   <option value="50">50件</option>
                   <option value="100">100件</option>

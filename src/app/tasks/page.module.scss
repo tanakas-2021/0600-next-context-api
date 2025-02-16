@@ -26,6 +26,11 @@
 .headerPageCount {
   margin-right: 16px;
 }
+.displayCountSelecter {
+  background: vars.$displayCountSelecterColor;
+  color: vars.$fontColorLight;
+}
+
 .headerTotal {
   display: inline-block;
   margin-right: 16px;
