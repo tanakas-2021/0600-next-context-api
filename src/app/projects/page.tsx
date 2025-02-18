@@ -8,7 +8,7 @@ import { useProjects } from '../../hooks/useProjects';
 const Page = () => {
   const { pageInfo } = useProjects();
   const currentPage = pageInfo.page;
-  const endPage = Math.floor(pageInfo.totalCount / pageInfo.limit) + 1;
+  const endPage = Math.ceil(pageInfo.totalCount / pageInfo.limit);
   const totalCount = pageInfo.totalCount;
 
   return (

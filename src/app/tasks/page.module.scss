@@ -1,0 +1,70 @@
+@use "../../app/variables.module.scss" as vars;
+.title {
+  font-weight: 300;
+  font-size: 12px;
+}
+.container {
+  width: 100%;
+}
+.header {
+  border-bottom: 1px solid vars.$tableBorderColor;
+  margin: 16px 0;
+}
+.headerControl {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.headerNumber {
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+}
+.headerPageIndex {
+  margin-right: 16px;
+}
+.headerPageCount {
+  margin-right: 16px;
+}
+.displayCountSelecter {
+  background: vars.$displayCountSelecterColor;
+  color: vars.$fontColorLight;
+}
+
+.headerTotal {
+  display: inline-block;
+  margin-right: 16px;
+}
+.table {
+  width: 100%;
+}
+.tableHeader {
+  display: flex;
+  border-bottom: 1px solid vars.$tableBorderColor;
+}
+.tableHeaderCell {
+  font-size: 8px;
+  font-weight: 700;
+}
+.tableCellTask {
+  width: 50%;
+  padding-left: 10px;
+}
+.tableCellProject {
+  width: 14%;
+}
+.tableCellStatus {
+  width: 12%;
+}
+.tableCellDeadline {
+  width: 8%;
+}
+.tableCellDetail {
+  width: 4%;
+}
+
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}

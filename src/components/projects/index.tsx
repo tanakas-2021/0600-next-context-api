@@ -7,7 +7,6 @@ import {
 import React from "react";
 import dayjs from "dayjs";
 
-import styles from "./index.module.scss";
 import { useProjects } from "@/hooks/useProjects";
 
 export const Projects = () => {
